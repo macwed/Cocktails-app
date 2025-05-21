@@ -19,6 +19,7 @@ import com.hfad.cocktails.ui.CocktailListScreen
 import com.hfad.cocktails.ui.MasterDetailScreen
 import com.hfad.cocktails.ui.theme.CocktailsTheme
 import com.hfad.cocktails.ui.CategoryFilterDropdown
+import com.hfad.cocktails.ui.HomeTabsScreen
 import com.hfad.cocktails.viewmodel.CocktailViewModel
 
 class MainActivity : ComponentActivity() {
@@ -40,42 +41,13 @@ fun MyCocktailApp(cocktailViewModel: CocktailViewModel = viewModel()) {
             configuration.screenWidthDp >= 600
     val context = LocalContext.current
 
-    var selectedCategory by remember { mutableStateOf("Wszystkie") }
-    val categories = listOf("Wszystkie") + cocktails.map { it.category }.distinct()
-
-    val filteredCocktails = if (selectedCategory == "Wszystkie") {
-        cocktails
-    } else {
-        cocktails.filter { it.category == selectedCategory }
-    }
-
-    Column {
-        CategoryFilterDropdown(
-            categories = categories,
-            selectedCategory = selectedCategory,
-            onCategorySelected = { selectedCategory = it }
-        )
-
-        // przefiltrowana lista
-        CocktailListScreen(
-            cocktails = filteredCocktails,
-            onCocktailClick = { cocktail ->
-                context.startActivity(
-                    Intent(context, DetailActivity::class.java).apply {
-                        putExtra("cocktailId", cocktail.id)
-                    }
-                )
-            }
-        )
-    }
-
     if (isMasterDetail) {
         MasterDetailScreen(
             cocktails = cocktails,
-            onCocktailClick = { /* tu zapisz stan przepisu */ }
+            onCocktailClick = { /* tablet */ }
         )
     } else {
-        CocktailListScreen(
+        HomeTabsScreen(
             cocktails = cocktails,
             onCocktailClick = { cocktail ->
                 context.startActivity(
@@ -87,3 +59,4 @@ fun MyCocktailApp(cocktailViewModel: CocktailViewModel = viewModel()) {
         )
     }
 }
+
