@@ -30,43 +30,52 @@ class CocktailViewModel(application: Application) : AndroidViewModel(application
                                 Cocktail(
                                     1, "Mojito", "Rum, limonka, mięta",
                                     "Wymieszaj składniki i podawaj na lodzie.",
-                                    60, "", "Alkoholowe", R.drawable.placeholder
+                                    60, "", "Alkoholowe",
+                                    R.drawable.mojito_icon, R.drawable.mojito
                                 ),
                                 Cocktail(
                                     2, "Martini", "Gin, wermut",
                                     "Mieszaj z lodem i przecedź do kieliszka.",
-                                    90, "", "Alkoholowe", R.drawable.placeholder
+                                    90, "", "Alkoholowe",
+                                    R.drawable.martini_icon, R.drawable.martini
                                 ),
                                 Cocktail(
                                     3, "Margarita", "TODO",
                                     "Wymieszaj składniki i podawaj na lodzie.",
-                                    60, "", "Alkoholowe", R.drawable.placeholder
+                                    60, "", "Alkoholowe",
+                                    R.drawable.margarita_icon, R.drawable.margarita
                                 ),
                                 Cocktail(
                                     4, "Cosmopolitan", "TODO",
                                     "Wymieszaj składniki w wysokiej szklance.",
-                                    60, "", "Bezalkoholowe", R.drawable.placeholder
+                                    60, "", "Bezalkoholowe",
+                                    R.drawable.cosmopolitan_icon, R.drawable.cosmopolitan
                                 ),
                                 Cocktail(5, "Negroni", "Gin, Campari, słodki wermut",
                                     "Wymieszaj składniki z lodem, podawaj w szklance z lodem i udekoruj skórką pomarańczową.",
-                                    80, "", "Alkoholowe", R.drawable.placeholder
+                                    80, "", "Alkoholowe",
+                                    R.drawable.negroni_icon, R.drawable.negroni
                                 ),
                                 Cocktail(6, "Daiquiri", "Rum, sok z limonki, syrop cukrowy",
                                     "Wstrząśnij składniki z lodem i przecedź do schłodzonego kieliszka.",
-                                    50, "", "Alkoholowe", R.drawable.placeholder
+                                    50, "", "Alkoholowe",
+                                    R.drawable.daiquiri_icon, R.drawable.daiquiri
                                 ),
                                 Cocktail(
                                     7, "Piña Colada", "Rum, krem kokosowy, sok ananasowy",
                                     "Zmiksuj składniki z lodem i podawaj w wysokiej szklance.",
-                                    90, "", "Alkoholowe", R.drawable.placeholder
+                                    90, "", "Alkoholowe",
+                                    R.drawable.pinacolada_icon, R.drawable.pinacolada
                                 ),
                                 Cocktail(8, "Manhattan", "TODO",
                                     "Wlej składniki do miedzianego kubka z lodem, lekko wymieszaj.",
-                                    60, "", "Alkoholowe", R.drawable.placeholder
+                                    60, "", "Alkoholowe",
+                                    R.drawable.manhattan_icon, R.drawable.manhattan
                                 ),
-                                Cocktail(13, "Aperol Spritz", "Aperol, prosecco, woda gazowana",
+                                Cocktail(9, "Aperol Spritz", "Aperol, prosecco, woda gazowana",
                                     "Wlej składniki do kieliszka z lodem i delikatnie wymieszaj.",
-                                    70, "", "Alkoholowe", R.drawable.placeholder
+                                    70, "", "Alkoholowe",
+                                    R.drawable.aperol_icon, R.drawable.aperol
                                 ),
                             )
                         )

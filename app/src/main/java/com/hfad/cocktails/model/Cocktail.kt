@@ -11,6 +11,7 @@ data class Cocktail(
     val instructions: String,
     val defaultTime: Int = 60,          // czas domyślny
     val notes: String = "",
-    val category: String = "Alkoholowe", // kategoria
-    val imageRes: Int = 0                // pole na zasób obrazka
+    val category: String = "Alkoholowe",
+    val imageRes: Int = 0,
+    val detailImageRes: Int = 0
 )
