@@ -4,13 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,12 +24,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfad.cocktails.viewmodel.CocktailViewModel
+import androidx.compose.material.icons.rounded.Send
 import com.hfad.cocktails.model.Cocktail
 import kotlinx.coroutines.launch
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,74 +58,84 @@ fun CocktailDetailScreen(
 
         // Scaffold = CollapsingToolbar + FAB
         Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                LargeTopAppBar(
-                    title = { Text(cocktail.name) },
-                    navigationIcon = {
-                        IconButton(onClick = { backDispatcher?.onBackPressed() }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Wróć")
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                    actions = {
-                        // jakieś dodatkowe akcje?
-                    }
-                )
-            },
             floatingActionButton = {
                 FloatingActionButton(
-                    elevation = FloatingActionButtonDefaults.elevation(12.dp),
-                    onClick = {
-                        val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
-                            data = "smsto:".toUri() // brak numeru – wyświetli wybór kontaktu
-                            putExtra("sms_body", cocktail.ingredients)
-                        }
-                        context.startActivity(smsIntent)
-                    }
+                    onClick = { /* wyślij sms */ },
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White,
+                    elevation = FloatingActionButtonDefaults.elevation(8.dp)
                 ) {
-                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Wyślij składniki SMS")
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Rounded.Send, // zmień na Icons.Filled.Sms jeśli chcesz inny look
+                        contentDescription = "Wyślij SMS"
+                    )
                 }
             }
         ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
+                    .verticalScroll(rememberScrollState())
             ) {
-                // Collapsing obrazek na górze!
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .background(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            shape = RoundedCornerShape(24.dp)
+                        )
                         .padding(16.dp)
-                        .shadow(10.dp, RoundedCornerShape(24.dp))
+                        .shadow(8.dp, shape = RoundedCornerShape(24.dp))
                 ) {
                     Image(
-                        painter = painterResource(id = cocktail.detailImageRes.takeIf { it != 0 } ?: cocktail.imageRes),
+                        painter = painterResource(id = cocktail.detailImageRes.takeIf { it != 0 }
+                            ?: cocktail.imageRes),
                         contentDescription = cocktail.name,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f)
-                            .clip(RoundedCornerShape(24.dp))
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
+
                 Spacer(modifier = Modifier.height(12.dp))
                 // reszta szczegółów
                 Column(Modifier.padding(20.dp)) {
-                    Text(text = "Składniki: ${cocktail.ingredients}", style = MaterialTheme.typography.bodyLarge)
-                    Spacer(Modifier.height(8.dp))
-                    Text(text = "Sposób przygotowania: ${cocktail.instructions}", style = MaterialTheme.typography.bodyLarge)
-
-                    if (cocktail.notes.isNotBlank()) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Uwagi: ${cocktail.notes}", style = MaterialTheme.typography.bodyMedium)
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TimerScreen(defaultTime = cocktail.defaultTime)
+                    Text(
+                        text = cocktail.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = "Składniki:",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Text(
+                        text = cocktail.ingredients,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = "Sposób przygotowania:",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Text(
+                        text = cocktail.instructions,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
+                TimerScreen(defaultTime = cocktail.defaultTime)
             }
         }
     }

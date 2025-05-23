@@ -125,7 +125,7 @@ fun StartTab() {
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                "Wybierz zakładkę, by przeglądać przepisy na najlepsze koktajle 🍹.\nZainspiruj się i baw się dobrze!",
+                "Wybierz zakładkę, by przeglądać przepisy na najlepsze koktajle 🍹.",
                 color = Color.White,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
