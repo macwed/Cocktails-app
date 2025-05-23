@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hfad.cocktails.viewmodel.CocktailViewModel
@@ -32,7 +31,6 @@ fun CocktailDetailScreen(
     cocktailId: Int,
     cocktailViewModel: CocktailViewModel = viewModel()
 ) {
-    val context = LocalContext.current
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     val cocktailFlow = cocktailViewModel.getCocktailFlowById(cocktailId)
@@ -43,8 +41,8 @@ fun CocktailDetailScreen(
             Text("Ładowanie...")
         }
         else -> {
-            val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-            val scrollState = rememberScrollState()
+/*            val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+            val scrollState = rememberScrollState()*/
             Scaffold(
                 topBar = {
                     LargeTopAppBar(
