@@ -14,13 +14,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hfad.cocktails.model.Cocktail
 import com.hfad.cocktails.ui.CocktailListScreen
 import com.hfad.cocktails.ui.MasterDetailScreen
 import com.hfad.cocktails.ui.theme.CocktailsTheme
 import com.hfad.cocktails.ui.CategoryFilterDropdown
 import com.hfad.cocktails.ui.HomeTabsScreen
 import com.hfad.cocktails.viewmodel.CocktailViewModel
+import kotlinx.coroutines.flow.Flow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,8 +9,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CocktailDao {
+    @Query("SELECT * FROM cocktails WHERE id = :cocktailId")
+    fun getCocktailFlowById(cocktailId: Int): Flow<Cocktail>
+
     @Query("SELECT * FROM cocktails")
-    fun getAllCocktails(): Flow<List<Cocktail>>
+    fun getAllCocktailsFlow(): Flow<List<Cocktail>>
 
     @Query("SELECT * FROM cocktails WHERE id = :cocktailId LIMIT 1")
     suspend fun getCocktailById(cocktailId: Int): Cocktail?

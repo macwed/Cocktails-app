@@ -96,7 +96,8 @@ class CocktailViewModel(application: Application) : AndroidViewModel(application
 
     val cocktails: Flow<List<Cocktail>> = repository.getAllCocktailsFlow()
 
-    suspend fun getCocktailById(cocktailId: Int): Cocktail? = repository.getCocktailById(cocktailId)
+    fun getCocktailFlowById(cocktailId: Int): Flow<Cocktail> =
+        repository.getCocktailFlowById(cocktailId)
 
     fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean) {
         viewModelScope.launch {
