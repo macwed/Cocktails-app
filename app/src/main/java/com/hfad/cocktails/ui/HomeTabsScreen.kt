@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,7 +30,7 @@ fun HomeTabsScreen(
     cocktails: List<Cocktail>,
     onCocktailClick: (Cocktail) -> Unit
 ) {
-    val tabs = listOf("Start", "Alkoholowe", "Bezalkoholowe")
+    val tabs = listOf("Start", "Wszystkie", "Long drinks", "Short drinks", "Bezalkoholowe")
     val pagerState = rememberPagerState(pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 
@@ -79,17 +78,26 @@ fun HomeTabsScreen(
             modifier = Modifier.weight(1f)
         ) { page ->
             when (page) {
-                0 -> StartTab()
+                0 -> StartTab(                )
                 1 -> CategoryGrid(
-                    cocktails = cocktails.filter { it.category == "Alkoholowe" },
+                    cocktails = cocktails, // Wszystkie
                     onCocktailClick = onCocktailClick
                 )
                 2 -> CategoryGrid(
-                    cocktails = cocktails.filter { it.category == "Bezalkoholowe" },
+                    cocktails = cocktails.filter { it.category.contains("Long drink") },
+                    onCocktailClick = onCocktailClick
+                )
+                3 -> CategoryGrid(
+                    cocktails = cocktails.filter { it.category.contains("Short drink") },
+                    onCocktailClick = onCocktailClick
+                )
+                4 -> CategoryGrid(
+                    cocktails = cocktails.filter { it.category.contains("Bezalkoholowe") },
                     onCocktailClick = onCocktailClick
                 )
             }
         }
+
     }
 }
 

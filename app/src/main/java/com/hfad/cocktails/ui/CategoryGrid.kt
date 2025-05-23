@@ -44,7 +44,7 @@ fun CategoryGrid(
                     .clickable { onCocktailClick(cocktail) },
                 shape = RoundedCornerShape(28.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFFF4F3FF) // pastelowy fiolet, zmień pod swój motyw!
+                    containerColor = Color(0xFFF4F3FF)
                 )
             ) {
                 Column(
