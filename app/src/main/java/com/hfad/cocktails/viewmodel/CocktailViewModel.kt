@@ -51,12 +51,14 @@ class CocktailViewModel(application: Application) : AndroidViewModel(application
                                     60, "", "Bezalkoholowe",
                                     R.drawable.cosmopolitan_icon, R.drawable.cosmopolitan
                                 ),
-                                Cocktail(5, "Negroni", "Gin, Campari, słodki wermut",
+                                Cocktail(
+                                    5, "Negroni", "Gin, Campari, słodki wermut",
                                     "Wymieszaj składniki z lodem, podawaj w szklance z lodem i udekoruj skórką pomarańczową.",
                                     80, "", "Alkoholowe",
                                     R.drawable.negroni_icon, R.drawable.negroni
                                 ),
-                                Cocktail(6, "Daiquiri", "Rum, sok z limonki, syrop cukrowy",
+                                Cocktail(
+                                    6, "Daiquiri", "Rum, sok z limonki, syrop cukrowy",
                                     "Wstrząśnij składniki z lodem i przecedź do schłodzonego kieliszka.",
                                     50, "", "Alkoholowe",
                                     R.drawable.daiquiri_icon, R.drawable.daiquiri
@@ -67,12 +69,14 @@ class CocktailViewModel(application: Application) : AndroidViewModel(application
                                     90, "", "Alkoholowe",
                                     R.drawable.pinacolada_icon, R.drawable.pinacolada
                                 ),
-                                Cocktail(8, "Manhattan", "TODO",
+                                Cocktail(
+                                    8, "Manhattan", "TODO",
                                     "Wlej składniki do miedzianego kubka z lodem, lekko wymieszaj.",
                                     60, "", "Alkoholowe",
                                     R.drawable.manhattan_icon, R.drawable.manhattan
                                 ),
-                                Cocktail(9, "Aperol Spritz", "Aperol, prosecco, woda gazowana",
+                                Cocktail(
+                                    9, "Aperol Spritz", "Aperol, prosecco, woda gazowana",
                                     "Wlej składniki do kieliszka z lodem i delikatnie wymieszaj.",
                                     70, "", "Alkoholowe",
                                     R.drawable.aperol_icon, R.drawable.aperol
@@ -93,4 +97,10 @@ class CocktailViewModel(application: Application) : AndroidViewModel(application
     val cocktails: Flow<List<Cocktail>> = repository.getAllCocktailsFlow()
 
     suspend fun getCocktailById(cocktailId: Int): Cocktail? = repository.getCocktailById(cocktailId)
+
+    fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean) {
+        viewModelScope.launch {
+            repository.updateFavoriteStatus(cocktailId, isFavorite)
+        }
+    }
 }

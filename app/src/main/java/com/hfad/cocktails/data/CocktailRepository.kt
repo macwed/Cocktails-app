@@ -7,4 +7,7 @@ class CocktailRepository(private val dao: CocktailDao) {
     fun getAllCocktailsFlow(): Flow<List<Cocktail>> = dao.getAllCocktails()
     suspend fun getCocktailById(cocktailId: Int): Cocktail? = dao.getCocktailById(cocktailId)
     suspend fun insertAll(cocktails: List<Cocktail>) = dao.insertAll(cocktails)
+    suspend fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean) {
+        dao.updateFavoriteStatus(cocktailId, isFavorite)
+    }
 }

@@ -11,7 +11,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.Send
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -58,20 +61,33 @@ fun CocktailDetailScreen(
 
         // Scaffold = CollapsingToolbar + FAB
         Scaffold(
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { /* wyślij sms */ },
-                    shape = CircleShape,
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White,
-                    elevation = FloatingActionButtonDefaults.elevation(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Rounded.Send, // zmień na Icons.Filled.Sms jeśli chcesz inny look
-                        contentDescription = "Wyślij SMS"
-                    )
-                }
-            }
+            topBar = {
+                LargeTopAppBar(
+                    title = { Text(cocktail.name) },
+                    navigationIcon = {
+                        IconButton(onClick = { /* back */ }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Wróć")
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            cocktailViewModel.updateFavoriteStatus(
+                                cocktail.id,
+                                !cocktail.isFavorite // przełącz na przeciwny stan
+                            )
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = if (cocktail.isFavorite) "Usuń z ulubionych" else "Dodaj do ulubionych",
+                                tint = if (cocktail.isFavorite) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
+                        }
+                        IconButton(onClick = { /* TODO: udostępnij */ }) {
+                            Icon(Icons.Filled.Share, contentDescription = "Udostępnij")
+                        }
+                    }
+                )
+            },
         ) { innerPadding ->
             Column(
                 modifier = Modifier

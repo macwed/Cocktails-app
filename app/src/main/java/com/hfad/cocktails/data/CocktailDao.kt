@@ -20,4 +20,7 @@ interface CocktailDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(cocktails: List<Cocktail>)
+
+    @Query("UPDATE cocktails SET isFavorite = :isFavorite WHERE id = :cocktailId")
+    suspend fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean)
 }

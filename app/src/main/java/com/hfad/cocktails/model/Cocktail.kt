@@ -13,5 +13,6 @@ data class Cocktail(
     val notes: String = "",
     val category: String = "Alkoholowe",
     val imageRes: Int = 0,
-    val detailImageRes: Int = 0
+    val detailImageRes: Int = 0,
+    val isFavorite: Boolean = false
 )
