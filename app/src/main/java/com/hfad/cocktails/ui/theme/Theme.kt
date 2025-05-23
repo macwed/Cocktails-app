@@ -9,6 +9,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -33,25 +34,24 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+private val PastelColorScheme = lightColorScheme(
+    primary = Color(0xFF7C83FD),
+    secondary = Color(0xFFF7B801),
+    tertiary = Color(0xFFF23B6D),
+    background = Color(0xFFF9F9FB),
+    surface = Color(0xFFFFFFFF),
+    surfaceVariant = Color(0xFFE3E7F1),
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
+    onBackground = Color(0xFF232E45),
+    onSurface = Color(0xFF232E45)
+)
 @Composable
 fun CocktailsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = PastelColorScheme,
         typography = Typography,
         content = content
     )

@@ -6,6 +6,7 @@ import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -14,7 +15,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -69,6 +72,7 @@ fun CocktailDetailScreen(
             },
             floatingActionButton = {
                 FloatingActionButton(
+                    elevation = FloatingActionButtonDefaults.elevation(12.dp),
                     onClick = {
                         val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
                             data = "smsto:".toUri() // brak numeru – wyświetli wybór kontaktu
@@ -88,30 +92,27 @@ fun CocktailDetailScreen(
                     .verticalScroll(scrollState)
             ) {
                 // Collapsing obrazek na górze!
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(400.dp)
-                    .clipToBounds()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .shadow(10.dp, RoundedCornerShape(24.dp))
                 ) {
                     Image(
                         painter = painterResource(id = cocktail.detailImageRes.takeIf { it != 0 } ?: cocktail.imageRes),
                         contentDescription = cocktail.name,
-                        contentScale = ContentScale.Fit,
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.0f)
+                            .aspectRatio(1f)
+                            .clip(RoundedCornerShape(24.dp))
                     )
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 // reszta szczegółów
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                Column(Modifier.padding(20.dp)) {
                     Text(text = "Składniki: ${cocktail.ingredients}", style = MaterialTheme.typography.bodyLarge)
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(Modifier.height(8.dp))
                     Text(text = "Sposób przygotowania: ${cocktail.instructions}", style = MaterialTheme.typography.bodyLarge)
 
                     if (cocktail.notes.isNotBlank()) {
